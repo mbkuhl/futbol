@@ -60,32 +60,12 @@ class StatTracker
     percentage = (count.to_f / game.length).round(2)
   end
 
-  # def percentage_visitor_wins
-  #   count = 0
-  #   game.each do |single_game|
-  #     if single_game[:away_goals].to_i > single_game[:home_goals].to_i
-  #       count +=1
-  #     end
-  #   end
-  #   percentage = (count.to_f / game.length).round(2)
-  # end
-
   def percentage_ties 
     count = 0
     game.each {|single_game| count += 1 if single_game[:home_goals] == single_game[:away_goals]}
     percentage = (count.to_f / game.count).round(2)
   end
 
-  # def percentage_ties 
-  #   count = 0
-  #   game.each do |single_game|
-  #     if single_game[:home_goals] == single_game[:away_goals] 
-  #       count += 1
-  #     end 
-  #   end
-  #   percentage = (count.to_f / game.count).round(2)
-  # end
-  
   def count_of_games_by_season
     counts = Hash.new(0)
     game.each { |single_game| counts[single_game[:season]] += 1 }
@@ -142,14 +122,9 @@ class StatTracker
   end
 
   def highest_scoring_home_team
-    highest_score = ""
-    team_number = @all_season_data.home_team_games_scores.sort_by{ |team, data| data[:average] }.last[0]
-    team_data.each do |team|
-      if team[:team_id] == team_number
-        highest_score << team[:teamname]
-      end
-    end 
-    highest_score
+    team_average = @all_season_data.home_team_score_game_average
+    highest_home_id = team_average.sort_by { |team_id, average| average }.last[0]
+    team_data.find { |team| team[:team_id] == highest_home_id }[:teamname]
   end
 
   def lowest_scoring_visitor
@@ -158,15 +133,9 @@ class StatTracker
   end
   
   def lowest_scoring_home_team
-    lowest_scoring = ""
-    lowest_avg = games_and_scores.sort_by { |team, data| data[:average] }.first[0]
-    
-    team_data.each do |team|
-      if team[:team_id] == lowest_avg
-        lowest_scoring << team[:teamname]
-      end
-    end 
-    lowest_scoring
+    team_average = @all_season_data.home_team_score_game_average
+    lowest_home_id = team_average.sort_by { |team_id, average| average }.first[0]
+    team_data.find { |team| team[:team_id] == lowest_home_id }[:teamname]
   end
 
   def winningest_coach(season)
@@ -212,15 +181,20 @@ class StatTracker
     team_data.find { |row| row[:team_id] == best }[:teamname]
   end
 
-  def least_accurate_team(season_number)
-    least_accurate = ""
-    team_number = season_accuracy(season_number).sort_by { |team, data| data[:ratio] }.first[0]
-    team_data.each do |team|
-      if team[:team_id] == team_number
-        least_accurate << team[:teamname]
-      end
-    end
-    least_accurate
+  def least_accurate_team(season_id)
+    team_info = @all_season_data.season_accuracy
+    require 'pry'; binding.pry
+    least_accurate_team_id = team_info.sort_by { |team_id, average| average }.first[0]
+    team_data.find { |team| team[:team_id] == least_accurate_team_id }[:teamname]
+    
+    # least_accurate = ""
+    # team_number = season_accuracy(season_number).sort_by { |team, data| data[:ratio] }.first[0]
+    # team_data.each do |team|
+    #   if team[:team_id] == team_number
+    #     least_accurate << team[:teamname]
+    #   end
+    # end
+    # least_accurate
   end
 
   def most_tackles(season)
