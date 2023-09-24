@@ -108,27 +108,27 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#games_and_scores' do
-    it 'returns a hash with team id, games played, total score and average' do
-      expected ={ "1"=>{:average=>1.78},
-      "2"=>{:average=>1.73},
-      "3"=>{:average=>2.27},
-      "4"=>{:average=>2.11}}
-      expect(stat_tracker.games_and_scores).to eq(expected)
-    end
-  end
+  # describe '#games_and_scores' do
+  #   it 'returns a hash with team id, games played, total score and average' do
+  #     expected ={ "1"=>{:average=>1.78},
+  #     "2"=>{:average=>1.73},
+  #     "3"=>{:average=>2.27},
+  #     "4"=>{:average=>2.11}}
+  #     expect(stat_tracker.games_and_scores).to eq(expected)
+  #   end
+  # end
 
-  describe '#number_of_games' do
-    it 'returns number of game' do
-      expect(stat_tracker.number_of_games("1")).to eq(9)
-    end
-  end
+  # describe '#number_of_games' do
+  #   it 'returns number of game' do
+  #     expect(stat_tracker.number_of_games("1")).to eq(9)
+  #   end
+  # end
 
-  describe '#total_score_for_teams' do
-    it 'returns total scores for teams' do
-      expect(stat_tracker.total_score_for_teams("1")).to eq(16)
-    end
-  end
+  # describe '#total_score_for_teams' do
+  #   it 'returns total scores for teams' do
+  #     expect(stat_tracker.total_score_for_teams("1")).to eq(16)
+  #   end
+  # end
 
   describe '#highest_scoring_home_team' do
     it 'return the highest scoring home team' do
@@ -203,35 +203,35 @@ RSpec.describe StatTracker do
     end
   end
 
-  describe '#teams_shots_goals_ratio' do
-    it 'returns a hash of team id and total score to total shot ratio' do
-      expected = {
-        "1" => {:ratio => 0.38462},
-        "2"=> {:ratio => 0.22581},
-        "3"=> {:ratio => 0.28},
-        "4"=> {:ratio => 0.27273},
-      }
-      expect(stat_tracker.season_accuracy("20122013")).to eq(expected)
-    end
-  end
+  # describe '#teams_shots_goals_ratio' do
+  #   it 'returns a hash of team id and total score to total shot ratio' do
+  #     expected = {
+  #       "1" => {:ratio => 0.38462},
+  #       "2"=> {:ratio => 0.22581},
+  #       "3"=> {:ratio => 0.28},
+  #       "4"=> {:ratio => 0.27273},
+  #     }
+  #     expect(stat_tracker.season_accuracy("20122013")).to eq(expected)
+  #   end
+  # end
   
-  describe '#season_total_goals' do
-    it 'returns total goals made by a team' do
-      expect(stat_tracker.season_total_goals("1", "20122013")).to eq(5)
-    end
-  end
+  # describe '#season_total_goals' do
+  #   it 'returns total goals made by a team' do
+  #     expect(stat_tracker.season_total_goals("1", "20122013")).to eq(5)
+  #   end
+  # end
   
-  describe '#season_total_shots' do
-    it 'returns total shots made by a team' do
-      expect(stat_tracker.season_total_shots("1", "20122013")).to eq(13)
-    end
-  end
+  # describe '#season_total_shots' do
+  #   it 'returns total shots made by a team' do
+  #     expect(stat_tracker.season_total_shots("1", "20122013")).to eq(13)
+  #   end
+  # end
 
-  describe '#season' do
-    it 'returns list of games in that season' do
-      expect(stat_tracker.season("20122013").class).to eq(Array)
-      expect(stat_tracker.season("20122013").first[:game_id]).to eq("2012020122")
-    end
-  end
+  # describe '#season' do
+  #   it 'returns list of games in that season' do
+  #     expect(stat_tracker.season("20122013").class).to eq(Array)
+  #     expect(stat_tracker.season("20122013").first[:game_id]).to eq("2012020122")
+  #   end
+  # end
 end
 

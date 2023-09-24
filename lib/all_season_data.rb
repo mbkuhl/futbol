@@ -58,7 +58,7 @@ class AllSeasonData
   def team_score_game_average
     teams_average = {}
     @stat_tracker.teams.each do |team|
-      teams_average[team.team_id] = ((team.seasons.sum { |season| season.last.goals })/(team.seasons.sum { |season| season.last.games}).to_f).round(2)
+      teams_average[team.team_id] = ((team.seasons.sum { |season| season.last.goals })/(team.seasons.sum { |season| season.last.games}).to_f).round(5)
     end
     teams_average
   end
@@ -66,7 +66,7 @@ class AllSeasonData
   def visitor_team_score_average
     visitor_average = {}
     @stat_tracker.teams.each do |team|
-      visitor_average[team.team_id] = ((team.seasons.sum { |season| season.last.away_goals })/(team.seasons.sum { |season| season.last.away_games}).to_f).round(2)
+      visitor_average[team.team_id] = ((team.seasons.sum { |season| season.last.away_goals })/(team.seasons.sum { |season| season.last.away_games}).to_f).round(5)
     end
     visitor_average
   end
@@ -74,7 +74,7 @@ class AllSeasonData
   def home_team_score_game_average
     teams_average = {}
     @stat_tracker.teams.each do |team|
-      teams_average[team.team_id] = ((team.seasons.sum { |season| season.last.home_goals })/(team.seasons.sum { |season| season.last.home_games}).to_f).round(2)
+      teams_average[team.team_id] = ((team.seasons.sum { |season| season.last.home_goals })/(team.seasons.sum { |season| season.last.home_games}).to_f).round(5)
     end
     teams_average
   end
@@ -83,11 +83,8 @@ class AllSeasonData
     team_accuracy = {}
     @seasons.each do |season|
       if season.first == season_id
-        season.last
-          require 'pry'; binding.pry 
-        
+        season.last.team_seasons.each { |team_season| team_accuracy[team_season.team_id] = (team_season.goals / team_season.shots.to_f).round(5) }
       end
-    
     end
     team_accuracy
   end
