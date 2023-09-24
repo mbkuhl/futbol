@@ -38,15 +38,15 @@ RSpec.describe TeamSeason do
       stat_tracker.seasons['20122013'].team_seasons.each do |season|
         expect(season).to be_a(TeamSeason)
         expect(season.season).to eq('20122013')
-        expect(teamseason.team_id).to be_a(String)
-        expect(teamseason.goals).to be_a(Integer)
-        expect(teamseason.games).to be_a(Integer)
-        expect(teamseason.shots).to be_a(Integer)
-        expect(teamseason.tackles).to be_a(Integer)
-        expect(teamseason.home_games).to be_a(Integer)
-        expect(teamseason.away_games).to be_a(Integer)
-        expect(teamseason.home_goals).to be_a(Integer)
-        expect(teamseason.away_goals).to be_a(Integer)
+        expect(season.team_id).to be_a(String)
+        expect(season.goals).to be_a(Integer)
+        expect(season.games).to be_a(Integer)
+        expect(season.shots).to be_a(Integer)
+        expect(season.tackles).to be_a(Integer)
+        expect(season.home_games).to be_a(Integer)
+        expect(season.away_games).to be_a(Integer)
+        expect(season.home_goals).to be_a(Integer)
+        expect(season.away_goals).to be_a(Integer)
       end
     end
   end
