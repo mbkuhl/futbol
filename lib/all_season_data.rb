@@ -78,12 +78,16 @@ class AllSeasonData
     end
     teams_average
   end
-
+  
   def season_accuracy(season_id)
     team_accuracy = {}
     @seasons.each do |season|
-      if season.first == season_id
-        season.last.team_seasons.each { |team_season| team_accuracy[team_season.team_id] = (team_season.goals / team_season.shots.to_f).round(5) }
+      if season.first == season_id 
+        season.last.team_seasons.each do |team_season| 
+          if team_season.games != 0
+            team_accuracy[team_season.team_id] = (team_season.goals / team_season.shots.to_f).round(5) 
+          end
+        end
       end
     end
     team_accuracy
@@ -93,7 +97,11 @@ class AllSeasonData
     team_tackles = {}
     @seasons.each do |season|
       if season.first == season_id
-        season.last.team_seasons.each { |team_season| team_tackles[team_season.team_id] = (team_season.tackles).round(5) }
+        season.last.team_seasons.each do |team_season| 
+          if team_season.games != 0
+          team_tackles[team_season.team_id] = (team_season.tackles).round(5)
+          end
+        end
       end
     end
     team_tackles
