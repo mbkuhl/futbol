@@ -88,6 +88,16 @@ class AllSeasonData
     end
     team_accuracy
   end
+
+  def season_tackles(season_id)
+    team_tackles = {}
+    @seasons.each do |season|
+      if season.first == season_id
+        season.last.team_seasons.each { |team_season| team_tackles[team_season.team_id] = (team_season.tackles).round(5) }
+      end
+    end
+    team_tackles
+  end
   
   def single_seasons_creator
     @seasons ||= begin

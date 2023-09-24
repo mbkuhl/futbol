@@ -178,14 +178,16 @@ class StatTracker
     team_data.find { |team| team[:team_id] == least_accurate_team_id }[:teamname]
   end
 
-  def most_tackles(season)
-    most = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.last[0]
-    team_data.find { |row| row[:team_id] == most }[:teamname]
+  def most_tackles(season_id)
+    team_info = @all_season_data.season_tackles(season_id)
+    most_tackles_team_id = team_info.sort_by { |team_id, total| total }.last[0]
+    team_data.find { |team| team[:team_id] == most_tackles_team_id }[:teamname]
   end
-  
-  def fewest_tackles(season)
-    fewest = season_tackle_hash(season).sort_by { |team, data| data[:tackles] }.first[0]
-    team_data.find { |row| row[:team_id] == fewest }[:teamname]
+
+  def fewest_tackles(season_id)
+    team_info = @all_season_data.season_tackles(season_id)
+    fewest_tackles_team_id = team_info.sort_by { |team_id, total| total }.first[0]
+    team_data.find { |team| team[:team_id] == fewest_tackles_team_id }[:teamname]
   end
 
   # def games_and_scores #all seasons methods
@@ -319,23 +321,23 @@ class StatTracker
   #   total_score
   # end
   
-  def season_tackle_hash(season) #single seasons
-    tackles_by_team = {}
-    team_data.each do |team|
-      tackles_by_team[team[:team_id]] = {
-        tackles: season_tackles(team[:team_id], season)
-      }
-    end
-    tackles_by_team
-  end
+  # def season_tackle_hash(season) #single seasons
+  #   tackles_by_team = {}
+  #   team_data.each do |team|
+  #     tackles_by_team[team[:team_id]] = {
+  #       tackles: season_tackles(team[:team_id], season)
+  #     }
+  #   end
+  #   tackles_by_team
+  # end
   
-  def season_tackles(team, season) #single seasons
-    total_tackles = 0
-    season_game_teams(season).each do |game|
-      total_tackles += game[:tackles].to_i if game[:team_id] == team
-    end
-    total_tackles
-  end
+  # def season_tackles(team, season) #single seasons
+  #   total_tackles = 0
+  #   season_game_teams(season).each do |game|
+  #     total_tackles += game[:tackles].to_i if game[:team_id] == team
+  #   end
+  #   total_tackles
+  # end
 
   # def season_accuracy(season_number) #single season 
   #   team_info = {}
