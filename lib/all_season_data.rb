@@ -1,4 +1,5 @@
-require './spec/spec_helper'
+# require './spec/spec_helper'
+require_relative './require_helper'
 
 class AllSeasonData
   attr_reader :stat_tracker, :games_by_season, :home_team_games, :home_team_games_scores
