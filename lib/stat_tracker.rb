@@ -61,31 +61,11 @@ class StatTracker
     percentage = (count.to_f / game.length).round(2)
   end
 
-  # def percentage_visitor_wins
-  #   count = 0
-  #   game.each do |single_game|
-  #     if single_game[:away_goals].to_i > single_game[:home_goals].to_i
-  #       count +=1
-  #     end
-  #   end
-  #   percentage = (count.to_f / game.length).round(2)
-  # end
-
   def percentage_ties 
     count = 0
     game.each {|single_game| count += 1 if single_game[:home_goals] == single_game[:away_goals]}
     percentage = (count.to_f / game.count).round(2)
   end
-
-  # def percentage_ties 
-  #   count = 0
-  #   game.each do |single_game|
-  #     if single_game[:home_goals] == single_game[:away_goals] 
-  #       count += 1
-  #     end 
-  #   end
-  #   percentage = (count.to_f / game.count).round(2)
-  # end
   
   def count_of_games_by_season
     counts = Hash.new(0)
@@ -118,28 +98,17 @@ class StatTracker
     best_offense_id = team_average.sort_by { |team_id, average| average }.last[0]
     team_data.find { |team| team[:team_id] == best_offense_id }[:teamname]
   end
-
-  def worst_offense
-    worst_offense = ""
-    team_number = games_and_scores.sort_by { |team, data| data[:average] }.first[0]
-    team_data.each do |team|
-      if team[:team_id] == team_number
-        worst_offense << team[:teamname]
-      end
-    end 
-    worst_offense
-  end
-
-  def highest_scoring_visitor
-    highest_scoring_visitor = ""
-    highest = visitor_games_and_scores.sort_by { |team, data| data[:average] }.last[0]
   
-    team_data.each do |team|
-      if team[:team_id] == highest
-        highest_scoring_visitor << team[:teamname]
-      end
-    end 
-    highest_scoring_visitor
+  def worst_offense
+    team_average = @all_season_data.team_score_game_average
+    worst_offense_id = team_average.sort_by { |team_id, average| average }.first[0]
+    team_data.find { |team| team[:team_id] == worst_offense_id }[:teamname]
+  end
+  
+  def highest_scoring_visitor
+    visitor_average = @all_season_data.visitor_team_score_average
+    visitor_id = visitor_average.sort_by { |team_id, average| average }.last[0]
+    team_data.find { |team| team[:team_id] == visitor_id }[:teamname]
   end
 
   def highest_scoring_home_team
@@ -154,8 +123,9 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
-    team_data.find { |row| row[:team_id] == lowest }[:teamname]
+    visitor_average = @all_season_data.visitor_team_score_average
+    visitor_id = visitor_average.sort_by { |team_id, average| average }.first[0]
+    team_data.find { |team| team[:team_id] == visitor_id }[:teamname]
   end
   
   def lowest_scoring_home_team
