@@ -75,7 +75,7 @@ class AllSeasonData
     team_accuracy = {}
     @seasons.each do |season|
       if season.first == season_id
-        season.last.
+        season.last
           require 'pry'; binding.pry 
         
       end
