@@ -9,7 +9,8 @@ class TeamSeason
                 :away_games,
                 :home_goals,
                 :away_goals,
-                :season
+                :season,
+                :team_id
 
   def initialize(season, team_id)
     @team_id = team_id
