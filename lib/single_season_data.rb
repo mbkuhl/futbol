@@ -1,4 +1,5 @@
-require './spec/spec_helper'
+# require './spec/spec_helper'
+require_relative './require_helper'
 
 class SingleSeasonData < AllSeasonData
   attr_reader   :name

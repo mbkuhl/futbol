@@ -1,3 +1,6 @@
+require_relative './require_helper'
+
+
 class Coach
   attr_reader :name
   attr_accessor :games,
