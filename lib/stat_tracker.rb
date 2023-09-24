@@ -73,8 +73,8 @@ class StatTracker
   end
 
   def average_goals_per_game
-    numerator = game_teams.sum { |game| game[:goals].to_i }.to_f
-    (numerator / game_teams.count).round(2)
+    numerator = game_teams.sum { |game| game[:goals].to_i.to_f }
+    (numerator / game.count).round(2) 
   end
 
   def average_goals_by_season
@@ -128,47 +128,49 @@ class StatTracker
     team_data.find { |team| team[:team_id] == lowest_home_id }[:teamname]
   end
 
-  def winningest_coach(season)
-    coach_stats = Hash.new { |hash, coach_name| hash[coach_name] = { wins: 0, games: 0 } }
-    game_teams.each do |game_team|
-      game_id = game_team[:game_id]
-      coach = game_team[:head_coach]
-      result = game_team[:result]
-      if (games = game.find { |g| g[:game_id] == game_team[:game_id] && g[:season] == season })
-        coach_stats[coach][:wins] += 1 if result == "WIN"
-        coach_stats[coach][:games] += 1
-      end
-    end
-    coach_win_percentages = coach_stats.transform_values do |stats|
-      (stats[:wins].to_f / stats[:games]).round(2)
-    end
-    coach_win_percentages.key(coach_win_percentages.values.max)
-  end
+  # def winningest_coach(season)
+  #   coach_stats = Hash.new { |hash, coach_name| hash[coach_name] = { wins: 0, games: 0 } }
+  #   game_teams.each do |game_team|
+  #     game_id = game_team[:game_id]
+  #     coach = game_team[:head_coach]
+  #     result = game_team[:result]
+  #     if (games = game.find { |g| g[:game_id] == game_team[:game_id] && g[:season] == season })
+  #       coach_stats[coach][:wins] += 1 if result == "WIN"
+  #       coach_stats[coach][:games] += 1
+  #     end
+  #   end
+  #   coach_win_percentages = coach_stats.transform_values do |stats|
+  #     (stats[:wins].to_f / stats[:games]).round(2)
+  #   end
+  #   coach_win_percentages.key(coach_win_percentages.values.max)
+  # end
     
-  def worst_coach(season)
-    coach_stats = Hash.new { |hash, coach_name| hash[coach_name] = { wins: 0, games: 0 } }
-    game_teams.each do |game_team|
-      game_id = game_team[:game_id]
-      coach = game_team[:head_coach]
-      result = game_team[:result]
-      if (games = game.find { |g| g[:game_id] == game_team[:game_id] && g[:season] == season })
-        coach_stats[coach][:wins] += 1 if result == "WIN"
-        coach_stats[coach][:games] += 1
-      end
-    end
-    coach_win_percentages = coach_stats.transform_values do |stats|
-      if stats[:games] > 0
-        (stats[:wins].to_f / stats[:games]).round(2)
-      else
-        0.0
-      end
-    end
-    coach_win_percentages.key(coach_win_percentages.values.min)
-  end
+  # def worst_coach(season)
+  #   coach_stats = Hash.new { |hash, coach_name| hash[coach_name] = { wins: 0, games: 0 } }
+  #   game_teams.each do |game_team|
+  #     game_id = game_team[:game_id]
+  #     coach = game_team[:head_coach]
+  #     result = game_team[:result]
+  #     if (games = game.find { |g| g[:game_id] == game_team[:game_id] && g[:season] == season })
+  #       coach_stats[coach][:wins] += 1 if result == "WIN"
+  #       coach_stats[coach][:games] += 1
+  #     end
+  #   end
+  #   coach_win_percentages = coach_stats.transform_values do |stats|
+  #     if stats[:games] > 0
+  #       (stats[:wins].to_f / stats[:games]).round(2)
+  #     else
+  #       0.0
+  #     end
+  #   end
+  #   coach_win_percentages.key(coach_win_percentages.values.min)
+  # end
 
   def most_accurate_team(season_id)
     team_info = @all_season_data.season_accuracy(season_id)
-    most_accurate_team_id = team_info.sort_by { |team_id, average| average }.last[0]
+    most_accurate_team_id = team_info.sort_by do |team_id, average| 
+       average
+    end.last[0]
     team_data.find { |team| team[:team_id] == most_accurate_team_id }[:teamname]
   end
 
