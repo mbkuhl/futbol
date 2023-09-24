@@ -1,6 +1,4 @@
-# require './spec/spec_helper'
 require_relative './require_helper'
-
 
 class Team
   attr_reader :seasons, :team_id, :game_objects
@@ -44,17 +42,6 @@ class Team
     team.home_goals += game.goals if game.hoa == "home"
     team.away_games += 1 if game.hoa == "away"
     team.away_goals += game.goals if game.hoa == "away"
-  end
-
-  def total_score_for_teams #all season methods
-    total_score = 0
-    game_teams.each do |game|
-      if game[:team_id] == @team_id
-        total_score += game[:goals].to_i
-      end 
-    end
-    
-    total_score
   end
 
   def game_object_maker

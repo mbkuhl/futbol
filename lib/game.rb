@@ -1,6 +1,5 @@
 require_relative './require_helper'
 
-
 class Game
   attr_reader :game_id,
               :season,

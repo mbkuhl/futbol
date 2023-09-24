@@ -14,7 +14,6 @@ RSpec.describe TeamSeason do
   let(:teamseason) { stat_tracker.teams[0].seasons['20122013'] }
   let(:teamseason1) { stat_tracker.seasons['20122013'].team_seasons[0] }
 
-
   describe '#initialize' do
     it 'initializes and has attributes' do
       expect(stat_tracker).to be_a(StatTracker)
@@ -50,5 +49,4 @@ RSpec.describe TeamSeason do
       end
     end
   end
-  
 end
