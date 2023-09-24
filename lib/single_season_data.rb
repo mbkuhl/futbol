@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 
 class SingleSeasonData < AllSeasonData
-  attr_reader   :name
+  attr_reader   :season
   attr_accessor :coaches,
                 :game_objects,
                 :team_seasons
