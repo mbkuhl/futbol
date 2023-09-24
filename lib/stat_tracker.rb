@@ -26,9 +26,8 @@ class StatTracker
         end
       end
     end
-    @teams.each { |teams| teams.game_object_maker}
-    @teams.each { |teams| teams.seasons_builder }
-    @games_by_season = @all_season_data.games_by_season
+    @teams.each { |teams| teams.initialize2}
+    @seasons.values.each { |season| season.initialize2}
   end
 
   def self.from_csv(locations)
@@ -98,28 +97,17 @@ class StatTracker
     best_offense_id = team_average.sort_by { |team_id, average| average }.last[0]
     team_data.find { |team| team[:team_id] == best_offense_id }[:teamname]
   end
-
-  def worst_offense
-    worst_offense = ""
-    team_number = games_and_scores.sort_by { |team, data| data[:average] }.first[0]
-    team_data.each do |team|
-      if team[:team_id] == team_number
-        worst_offense << team[:teamname]
-      end
-    end 
-    worst_offense
-  end
-
-  def highest_scoring_visitor
-    highest_scoring_visitor = ""
-    highest = visitor_games_and_scores.sort_by { |team, data| data[:average] }.last[0]
   
-    team_data.each do |team|
-      if team[:team_id] == highest
-        highest_scoring_visitor << team[:teamname]
-      end
-    end 
-    highest_scoring_visitor
+  def worst_offense
+    team_average = @all_season_data.team_score_game_average
+    worst_offense_id = team_average.sort_by { |team_id, average| average }.first[0]
+    team_data.find { |team| team[:team_id] == worst_offense_id }[:teamname]
+  end
+  
+  def highest_scoring_visitor
+    visitor_average = @all_season_data.visitor_team_score_average
+    visitor_id = visitor_average.sort_by { |team_id, average| average }.last[0]
+    team_data.find { |team| team[:team_id] == visitor_id }[:teamname]
   end
 
   def highest_scoring_home_team
@@ -129,8 +117,9 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    lowest = away_games_and_scores.sort_by { |team, data| data[:average] }.first[0]
-    team_data.find { |row| row[:team_id] == lowest }[:teamname]
+    visitor_average = @all_season_data.visitor_team_score_average
+    visitor_id = visitor_average.sort_by { |team_id, average| average }.first[0]
+    team_data.find { |team| team[:team_id] == visitor_id }[:teamname]
   end
   
   def lowest_scoring_home_team

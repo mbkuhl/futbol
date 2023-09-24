@@ -63,6 +63,14 @@ class AllSeasonData
     teams_average
   end
 
+  def visitor_team_score_average
+    visitor_average = {}
+    @stat_tracker.teams.each do |team|
+      visitor_average[team.team_id] = ((team.seasons.sum { |season| season.last.away_goals })/(team.seasons.sum { |season| season.last.away_games}).to_f).round(2)
+    end
+    visitor_average
+  end
+
   def home_team_score_game_average
     teams_average = {}
     @stat_tracker.teams.each do |team|
