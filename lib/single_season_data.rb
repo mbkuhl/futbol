@@ -38,4 +38,19 @@ class SingleSeasonData < AllSeasonData
     end
   end
 
+  def coach_win_percentages
+    coach_win_percentage_hash = {}
+    @coaches.each do |coach|
+      coach_win_percentage_hash[coach.name] = (coach.wins/coach.games.to_f)
+    end 
+    coach_win_percentage_hash
+  end
+
+  def winningest_coach
+    coach_win_percentages.sort_by { |team_id, average| average }.last[0]
+  end
+  
+  def worst_coach
+    coach_win_percentages.sort_by { |team_id, average| average }.first[0]
+  end
 end
