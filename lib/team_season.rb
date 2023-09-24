@@ -1,4 +1,3 @@
-# require './spec/spec_helper'
 require_relative './require_helper'
 
 class TeamSeason
