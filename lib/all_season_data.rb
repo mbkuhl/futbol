@@ -71,10 +71,15 @@ class AllSeasonData
     teams_average
   end
 
-  def season_accuracy
+  def season_accuracy(season_id)
     team_accuracy = {}
-    @stat_tracker.teams.each do |team|
-      team_accuracy[team.team_id] = ((team.seasons.sum { |season| season.last.shots })/(team.seasons.sum { |season| season.last.games}).to_f).round(2)
+    @seasons.each do |season|
+      if season.first == season_id
+        season.last.
+          require 'pry'; binding.pry 
+        
+      end
+    
     end
     team_accuracy
   end
@@ -88,34 +93,36 @@ class AllSeasonData
      @seasons = seasons_hash
     end
   end
-
-  def home_team_games #all season methods; combine with away team games; hash
-    @home_team_games ||= begin
-      home_team_games_array = []
-      @game_teams_data.each { |game| home_team_games_array << game if game[:hoa] == "home"}
-      @home_team_games = home_team_games_array 
-    end
-  end
-
-  def home_team_games_count(team) #all season methods
-    number_of_games = 0
-      home_team_games.each do |game|
-        number_of_games += 1 if game[:team_id] == team
-      end
-    number_of_games
-  end
-
-  def home_game_total_score(team) 
-    total_score = 0
-    home_team_games.each { |game| total_score += game[:goals].to_i if game[:team_id] == team }
-    total_score
-  end
-
-  def home_team_games_scores #all season methods, combine with visitor games and scores
-    @home_team_games_scores ||= begin
-    games_and_scores = {}
-    home_team_games.each { |team| games_and_scores[team[:team_id]] = { average: (home_game_total_score(team[:team_id])/home_team_games_count(team[:team_id]).to_f) }}
-    @home_team_games_scores = games_and_scores
-    end
-  end
 end
+
+
+#   def home_team_games #all season methods; combine with away team games; hash
+#     @home_team_games ||= begin
+#       home_team_games_array = []
+#       @game_teams_data.each { |game| home_team_games_array << game if game[:hoa] == "home"}
+#       @home_team_games = home_team_games_array 
+#     end
+#   end
+
+#   def home_team_games_count(team) #all season methods
+#     number_of_games = 0
+#       home_team_games.each do |game|
+#         number_of_games += 1 if game[:team_id] == team
+#       end
+#     number_of_games
+#   end
+
+#   def home_game_total_score(team) 
+#     total_score = 0
+#     home_team_games.each { |game| total_score += game[:goals].to_i if game[:team_id] == team }
+#     total_score
+#   end
+
+#   def home_team_games_scores #all season methods, combine with visitor games and scores
+#     @home_team_games_scores ||= begin
+#     games_and_scores = {}
+#     home_team_games.each { |team| games_and_scores[team[:team_id]] = { average: (home_game_total_score(team[:team_id])/home_team_games_count(team[:team_id]).to_f) }}
+#     @home_team_games_scores = games_and_scores
+#     end
+#   end
+# end

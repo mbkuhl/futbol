@@ -183,8 +183,7 @@ class StatTracker
   end
 
   def least_accurate_team(season_id)
-    team_info = @all_season_data.season_accuracy
-    require 'pry'; binding.pry
+    team_info = @all_season_data.season_accuracy(season_id)
     least_accurate_team_id = team_info.sort_by { |team_id, average| average }.first[0]
     team_data.find { |team| team[:team_id] == least_accurate_team_id }[:teamname]
     
