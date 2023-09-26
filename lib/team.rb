@@ -11,13 +11,31 @@ class Team
     @game_objects = []
     @seasons = {}
     @stat_tracker.seasons.keys.each do |season|
-      @seasons[season] = TeamSeason.new(season, @team_id)
+      @seasons[season] = TeamSeason.new(season, team_id, @stat_tracker)
     end
   end
 
   def initialize2
-    game_object_maker
+    game_sorter
+    @seasons.values.each { |season| season.initialize2 }
     seasons_builder
+  end
+
+  def game_sorter
+    @tgames.each do |game|
+      @seasons.values.each do |team_season_object|
+        if team_season_object.season[0..3] == game[:game_id][0..3]
+          team_season_object.tgames << game 
+        end
+      end
+    end
+    @games.each do |one_game|
+      @seasons.values.each do |team_season_object|
+        if team_season_object.season == one_game[:season]
+          team_season_object.gamescsv << one_game 
+        end
+      end
+    end
   end
 
   def seasons_builder
@@ -44,14 +62,14 @@ class Team
     team.away_goals += game.goals if game.hoa == "away"
   end
 
-  def game_object_maker
-    hash = {}
-    games.each do |one_game|
-      hash[one_game] = (@tgames.find { |game_team| game_team[:game_id] == one_game[:game_id] })
-    end
-    hash.each do |game, half_game|
-      game_object = Game.new(game, half_game)
-      @game_objects << game_object
-    end
-  end
+  # def game_object_maker
+  #   hash = {}
+  #   games.each do |one_game|
+  #     hash[one_game] = (@tgames.find { |game_team| game_team[:game_id] == one_game[:game_id] })
+  #   end
+  #   hash.each do |game, half_game|
+  #     game_object = Game.new(game, half_game)
+  #     @game_objects << game_object
+  #   end
+  # end
 end
