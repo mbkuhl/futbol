@@ -1,22 +1,70 @@
 # Futbol
 
+### Objective
+ - Take data from CSV files, and calculate various statistics, such as "Best Season for a Team", "Winningest Coach", and "Highest Scoring Home Team". We were given a testing suite which we needed to pass in less than 10 minutes. Some tests were considered optional, but should not effect the runtime greatly.
+
+### Context 
+
+- This project was given to us in our fourth week at Turing School of Software and Design. We were split into teams of four, and had a secondary objective of learning how to use git and github effectively in a team setting. 
+
+- There is quite a bit of code in this repository that is far from ideal, but I have decided to leave it untouched to demonstrate how I learned clean, DRY, convetional code over the course of my time at Turing.
+
+
 Starter repository for the [Turing School](https://turing.io/) Futbol project.
 
-A 1-2 summary or bullet points outlining your plan for check-ins throughout the duration of the project.
-We are setting a technical kick off meeting for Tuesday and a wrap meeting for Sunday. We will meet as needed throughout as well.
+### Installation
 
-A 2-4 sentence summary of your plan for project organization and workflow. This can include bullet points. If you plan to use a project management tool, please include a link to your project board.
-We are going to establish a foundation for the project at tomorrows kick off meeting. From that we will divide up the work so it is possible to work independently and on branches. We are using Github Projects to manage our work flow. 
-https://github.com/users/skim1027/projects/1
+1. Create a parent repository that can host both the main repository and the test suite
 
-A 2-3 sentence summary describing the different approaches your group discussed for project organization and how you collectively made a decision on which to use.
-We decided to utilize github project and listed all the methods to assign to the owners using snake draft. We made a status dropdown to give everyone to update their status of each method (in progress, done, need review).  
+2. Clone the repo into this parent repository.
+   ```sh
+   git@github.com:mbkuhl/futbol.git 
+   ```
+3. Clone the testing suite into the parent repository along the main repo.
+   ```sh
+   git@github.com:mbkuhl/futbol_spec_harness.git
+   ```
+   
+   The final file structure should look like the following:
 
-A 2-3 sentence summary describing your approach to the code design.
-We decided to put all the methods in one class (stat_tracker) and once we are all done with the methods, we are going to move some of the helper methods to a module and/or different class based on what each methods require.
+     ```
+    <some_directory>
+    |
+    |\
+    | \<futbol>
+    |
+    |\
+    | \<futbol_spec_harness>
+  ```
 
-DTR completed 09/19/2023
-https://docs.google.com/document/d/1w4Mj9HE_F4wsPm2Fm9n8iREa5bHNjtCSzbOcaF4-qNo/edit?usp=sharing
+4. Gem Bundle for each repo.
+   ```sh
+    cd futbol
+    bundle
+
+    cd ../futbol_spec_harness
+    bundle
+   ```
+
+5. Run the tests
+  ```sh
+    bundle exec rspec
+   ``` 
+
+  Some tests will be skipped. These were the optional tests mentioned above.
+
+  If you run into the following error while running bundle exex rspec
+
+  ```sh
+    /Users/(your user)/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/bundler-1.16.1/lib/bundler/shared_helpers.rb:266:in `search_up': undefined method `untaint' for "/Users/(your user)/(your file path)/futbol_spec_harness":String (NoMethodError)
+
+      current  = File.expand_path(SharedHelpers.pwd).untaint
+  ```
+
+  delete the Gemfile.lock in the testing suite and rerun ```bundle install```
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
