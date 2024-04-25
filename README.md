@@ -10,7 +10,7 @@
 - There is quite a bit of code in this repository that is far from ideal, but I have decided to leave it untouched to demonstrate how I learned clean, DRY, convetional code over the course of my time at Turing.
 
 
-Starter repository for the [Turing School](https://turing.io/) Futbol project.
+Starter repository for the [Turing School](https://github.com/turingschool-examples/futbol) Futbol project.
 
 ### Installation
 
