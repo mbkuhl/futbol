@@ -42,6 +42,8 @@ Further optimization down to <1 second after submission
 
 ### Run The Program
 
+Ensure that you are using ruby version 3.2.2
+
 1. Create a parent repository that can host both the main repository and the test suite
 
 2. Clone the repo into this parent repository.
