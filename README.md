@@ -2,6 +2,8 @@
 
 ### Objective
  - Take data from CSV files, and calculate various statistics, such as "Best Season for a Team", "Winningest Coach", and "Highest Scoring Home Team". We were given a testing suite which we needed to pass in less than 10 minutes. Some tests were considered optional, but should not effect the runtime greatly.
+ 
+ Starter repository for the [Turing School](https://github.com/turingschool-examples/futbol) Futbol project.
 
 ### Context 
 
@@ -9,10 +11,36 @@
 
 - There is quite a bit of code in this repository that is far from ideal, but I have decided to leave it untouched to demonstrate how I learned clean, DRY, convetional code over the course of my time at Turing.
 
+### Concepts Demonstrated
 
-Starter repository for the [Turing School](https://github.com/turingschool-examples/futbol) Futbol project.
+- Object Oriented Programing Using Ruby
 
-### Installation
+- Optimization (ASK ME ABOUT THIS): Project Requirement was 10 minutes, fair performance was considered 45 seconds, good performance was under 5 seconds. I was able to get this to run in under 1 second.
+
+- Primitive Extract and Transform portion of ETL pipeline
+
+- Use of Github in a team setting for the first time
+
+<hr>
+
+Initial 10 minute runtime
+
+<img src="./assets/10m.png" alt="10 minutes" width="300"/>
+
+Optimization down to <5 seconds at the time of submission
+
+<img src="./assets/5s.png" alt="Less than 5 seconds" width="300"/>
+
+Further optimization down to <1 second after submission
+
+<img src="./assets/1s.png" alt="Less than 1 second" width="300"/>
+
+<hr>
+
+
+
+
+### Run The Program
 
 1. Create a parent repository that can host both the main repository and the test suite
 
@@ -69,6 +97,9 @@ Starter repository for the [Turing School](https://github.com/turingschool-examp
 
 
 # Contributors
+* Michael Kuhlmeier
+-  https://www.linkedin.com/in/michaelkuhlmeier/
+-  https://github.com/mbkuhl
 * Miranda Delaney 
 -  https://www.linkedin.com/in/mld52/
 -  https://github.com/delaneymiranda1
@@ -78,9 +109,6 @@ Starter repository for the [Turing School](https://github.com/turingschool-examp
 * Scott DeVoss
 -  https://www.linkedin.com/in/scott-devoss-340582159/
 -  https://github.com/scottdevoss
-* Michael Kuhlmeier
--  https://www.linkedin.com/in/michaelkuhlmeier/
--  https://github.com/mbkuhl
 
 # Retro
 
